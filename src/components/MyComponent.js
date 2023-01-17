@@ -3,15 +3,20 @@ import React from 'react';
 class MyComponent extends React.Component {
 
     state = {
-        name: "Thanh",
+        name: "Dat",
         age: 17
     };
     handleClick(event){
-        console.log(">> click me")
-        console.log(event.target)
+        console.log(this.state.name)
     }
-    handleOnMouseOver(event){
-        console.log("On Mouse Over")
+    handleOnChangeInput(event){
+        this.setState({
+            name: event.target.value
+        })
+    }
+    handleOnSubmit(event){
+        event.preventDefault()
+        console.log(this.state)
     }
     //JSX
     render(){
@@ -19,10 +24,15 @@ class MyComponent extends React.Component {
 
             <div>
 
-                My name is {this.state.name} and I am {this.state.age} years old
-                <button onClick={this.handleClick}>click me</button>
-                <button onMouseOver={this.handleOnMouseOver}>hover me</button>
-
+                My name is {this.state.name} and I am {this.state.age}
+                <button onClick={(event) => {this.handleClick(event)} }>click me</button>
+                <form onSubmit={(event) => {this.handleOnSubmit(event)}}>
+                    <input 
+                    type="text"
+                    onChange={(event) => {this.handleOnChangeInput(event)}}
+                     />
+                    <button>Submit</button>
+                </form>
             </div>
         );
     }
